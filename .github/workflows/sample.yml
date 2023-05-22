@@ -28,7 +28,7 @@ jobs:
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
-      - name: Frontend build
+      - name: Frontend test
         run: cd frontend && npm run test
         env:
           CI: true

@@ -8,6 +8,11 @@ name: CI
 
 on: [push]
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   # npm モジュールのインストール
   setup:
@@ -33,7 +38,7 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: "**/node_modules"
-          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
       - name: Frontend test
         run: cd frontend && npm run test
         env:
@@ -49,11 +54,26 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: "**/node_modules"
-          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
       - name: Frontend build
         run: cd frontend && npm run build
         env:
           CI: false
+          PUBLIC_URL: /GitHubActionSample
+        # ビルド成果物をアップロード
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: './frontend/build'
+
+  # GitHub Pagesを使って成果物を公開する
+  GiHub-pages:
+    runs-on: ubuntu-latest
+    needs: [frontend-build]
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
 ```
 
 ### 実際に動作した GitHub Actionの例

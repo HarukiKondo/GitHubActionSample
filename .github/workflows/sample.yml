@@ -15,7 +15,7 @@ jobs:
           path: "**/node_modules"
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-{{ checksum "patches.hash" }}
       - name: Install packages
-        run: cd frontend && npm i
+        run: cd frontend && npm ci
 
   # フロントエンドのテスト実施
   frontend-test:
@@ -31,7 +31,7 @@ jobs:
       - name: Frontend build
         run: cd frontend && npm run test
         env:
-          CI: false
+          CI: true
 
   # フロントエンドのビルド
   frontend-build:

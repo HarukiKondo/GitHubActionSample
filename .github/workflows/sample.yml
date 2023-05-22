@@ -2,6 +2,11 @@ name: CI
 
 on: [push]
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   # npm モジュールのインストール
   setup:
@@ -49,6 +54,7 @@ jobs:
         env:
           CI: false
           PUBLIC_URL: /GitHubActionSample
+        # ビルド成果物をアップロード
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:

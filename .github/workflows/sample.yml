@@ -3,6 +3,7 @@ name: CI
 on: [push]
 
 jobs:
+  # npm モジュールのインストール
   setup:
     runs-on: ubuntu-latest
     steps:
@@ -16,6 +17,7 @@ jobs:
       - name: Install packages
         run: cd frontend && npm i
 
+  # フロントエンドのテスト実施
   frontend-test:
     runs-on: ubuntu-latest
     needs: [setup]
@@ -31,6 +33,7 @@ jobs:
         env:
           CI: false
 
+  # フロントエンドのビルド
   frontend-build:
     runs-on: ubuntu-latest
     needs: [frontend-test, setup]

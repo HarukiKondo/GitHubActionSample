@@ -84,3 +84,11 @@ jobs:
     sample.ymlファイルで定義されたコマンドが実行されてフロントエンドのビルドが行われている。
 
     ![](./assets/5.png)
+
+- リポジトリの設定ファイルから、GitHub Actionsによる成果物の公開設定をONにする。
+
+  ![](./assets/6.png)
+
+- GitHub pagesでのデプロイ Action
+
+  ![](./assets/7.png)
